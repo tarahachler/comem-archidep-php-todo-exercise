@@ -12,66 +12,66 @@ define('DB_USER', 'todolist');
 define('DB_PASS', 'chAngeMeN0w!');
 define('DB_NAME', 'todolist');
 define('DB_HOST', '127.0.0.1');
-define('DB_PORT', '3306');
+define('DB_PORT', '8889');
 
-$db = new PDO('mysql:host='.DB_HOST.';port='.DB_PORT.';dbname='.DB_NAME, DB_USER, DB_PASS);
+$db = new PDO('mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
 $items = array();
 
 if (isset($_POST['action'])) {
-  switch($_POST['action']) {
+    switch ($_POST['action']) {
 
-    /**
-     * Insert a new task into the database, then redirect to the base URL.
-     */
-    case 'new':
+        /**
+             * Insert a new task into the database, then redirect to the base URL.
+             */
+        case 'new':
 
-      $title = $_POST['title'];
-      if ($title && $title !== '') {
-        $insertQuery = 'INSERT INTO todo VALUES(NULL, \''.$title.'\', FALSE, CURRENT_TIMESTAMP)';
-        if (!$db->query($insertQuery)) {
-          die(print_r($db->errorInfo(), true));
-        }
-      }
+            $title = $_POST['title'];
+            if ($title && $title !== '') {
+                $insertQuery = 'INSERT INTO todo VALUES(NULL, \'' . $title . '\', FALSE, CURRENT_TIMESTAMP)';
+                if (!$db->query($insertQuery)) {
+                    die(print_r($db->errorInfo(), true));
+                }
+            }
 
-      header('Location: '.BASE_URL);
-      die();
+            header('Location: ' . BASE_URL);
+            die();
 
-    /**
-     * Toggle a task (i.e. if it is done, undo it; if it is not done, mark it as done),
-     * then redirect to the base URL.
-     */
-    case 'toggle':
+        /**
+             * Toggle a task (i.e. if it is done, undo it; if it is not done, mark it as done),
+             * then redirect to the base URL.
+             */
+        case 'toggle':
 
-      $id = $_POST['id'];
-      if(is_numeric($id)) {
-        $updateQuery = ''; // IMPLEMENT ME
-        if(!$db->query($updateQuery)) {
-          die(print_r($db->errorInfo(), true));
-        }
-      }
+            $id = $_POST['id'];
+            if (is_numeric($id)) {
+                $updateQuery = ''; // IMPLEMENT ME
+                if (!$db->query($updateQuery)) {
+                    die(print_r($db->errorInfo(), true));
+                }
+            }
 
-      header('Location: '.BASE_URL);
-      die();
+            header('Location: ' . BASE_URL);
+            die();
 
-    /**
-     * Delete a task, then redirect to the base URL.
-     */
-    case 'delete':
+        /**
+             * Delete a task, then redirect to the base URL.
+             */
+        case 'delete':
 
-      $id = $_POST['id'];
-      if(is_numeric($id)) {
-        $deleteQuery = ''; // IMPLEMENT ME
-        if(!$db->query($deleteQuery)) {
-          die(print_r($db->errorInfo(), true));
-        }
-      }
+            $id = $_POST['id'];
+            if (is_numeric($id)) {
+                $deleteQuery = ''; // IMPLEMENT ME
+                if (!$db->query($deleteQuery)) {
+                    die(print_r($db->errorInfo(), true));
+                }
+            }
 
-      header('Location: '.BASE_URL);
-      die();
+            header('Location: ' . BASE_URL);
+            die();
 
-    default:
-      break;
-  }
+        default:
+            break;
+    }
 }
 
 /**
@@ -114,7 +114,7 @@ $items = $db->query($selectQuery);
     <main role="main" class='offset-3 col-6 mt-3'>
 
       <!-- Todo item creation form -->
-      <form action='<?= BASE_URL ?>' method='post' class='form-inline justify-content-center'>
+      <form action='<?=BASE_URL?>' method='post' class='form-inline justify-content-center'>
         <input type='hidden' name='action' value='new' />
 
         <div class='form-group'>
@@ -129,24 +129,24 @@ $items = $db->query($selectQuery);
       <div class='list-group mt-3'>
 
         <!-- Todo items -->
-        <?php foreach($items as $item): ?>
-          <div class='list-group-item d-flex justify-content-between align-items-center<?php if($item['done']): ?> list-group-item-success<?php else: ?> list-group-item-warning<?php endif;?>'>
+        <?php foreach ($items as $item): ?>
+          <div class='list-group-item d-flex justify-content-between align-items-center<?php if ($item['done']): ?> list-group-item-success<?php else: ?> list-group-item-warning<?php endif;?>'>
 
-            <div class='title'><?= $item['title'] ?></div>
+            <div class='title'><?=$item['title']?></div>
 
             <!-- Todo item controls -->
-            <form action='<?= BASE_URL ?>' method='post'>
-              <input type='hidden' name='id' value='<?= $item['id'] ?>' />
+            <form action='<?=BASE_URL?>' method='post'>
+              <input type='hidden' name='id' value='<?=$item['id']?>' />
 
               <div class='btn-group btn-group-sm'>
 
                 <!-- Todo item toggle button -->
                 <button type='submit' name='action' value='toggle' class='btn btn-primary'>
-                  <?php if ($item['done']) { ?>
+                  <?php if ($item['done']) {?>
                     Undo
-                  <?php } else { ?>
+                  <?php } else {?>
                     Done
-                  <?php } ?>
+                  <?php }?>
                 </button>
 
                 <!-- Todo item delete button -->
@@ -158,7 +158,7 @@ $items = $db->query($selectQuery);
             </form>
 
           </div>
-        <?php endforeach; ?>
+        <?php endforeach;?>
 
       </div>
 
