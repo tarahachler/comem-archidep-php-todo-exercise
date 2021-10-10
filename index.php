@@ -43,11 +43,19 @@ if (isset($_POST['action'])) {
         case 'toggle':
 
             $id = $_POST['id'];
+            $done = $_POST['done']; // 0 ou 1
             if (is_numeric($id)) {
-                $updateQuery = ''; // IMPLEMENT ME
+              $updateQuery = 'UPDATE todo SET done = NOT done WHERE id = \'' . $id . '\'';
+              /* if ($done == 0) {
+                $updateQuery = 'UPDATE todo SET done = \'1\' WHERE id = \'' . $id . '\'';
+                $done = 1;
+              } else {
+                $updateQuery = 'UPDATE todo SET done = \'0\' WHERE id = \'' . $id . '\'';
+                $done = 0;
+              } */
                 if (!$db->query($updateQuery)) {
                     die(print_r($db->errorInfo(), true));
-                }
+                } 
             }
 
             header('Location: ' . BASE_URL);
