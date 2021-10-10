@@ -43,19 +43,11 @@ if (isset($_POST['action'])) {
         case 'toggle':
 
             $id = $_POST['id'];
-            $done = $_POST['done']; // 0 ou 1
             if (is_numeric($id)) {
-              $updateQuery = 'UPDATE todo SET done = NOT done WHERE id = \'' . $id . '\'';
-              /* if ($done == 0) {
-                $updateQuery = 'UPDATE todo SET done = \'1\' WHERE id = \'' . $id . '\'';
-                $done = 1;
-              } else {
-                $updateQuery = 'UPDATE todo SET done = \'0\' WHERE id = \'' . $id . '\'';
-                $done = 0;
-              } */
+                $updateQuery = 'UPDATE todo SET done = NOT done WHERE id = \'' . $id . '\'';
                 if (!$db->query($updateQuery)) {
                     die(print_r($db->errorInfo(), true));
-                } 
+                }
             }
 
             header('Location: ' . BASE_URL);
@@ -68,7 +60,7 @@ if (isset($_POST['action'])) {
 
             $id = $_POST['id'];
             if (is_numeric($id)) {
-                $deleteQuery = 'DELETE FROM todo WHERE id = \'' . $id . '\''; // IMPLEMENT ME
+                $deleteQuery = 'DELETE FROM todo WHERE id = \'' . $id . '\'';
                 if (!$db->query($deleteQuery)) {
                     die(print_r($db->errorInfo(), true));
                 }
@@ -85,7 +77,7 @@ if (isset($_POST['action'])) {
 /**
  * Select all tasks from the database.
  */
-$selectQuery = "SELECT * FROM todo ORDER BY created_at desc"; // IMPLEMENT ME
+$selectQuery = "SELECT * FROM todo ORDER BY created_at desc";
 $items = $db->query($selectQuery);
 ?>
 
